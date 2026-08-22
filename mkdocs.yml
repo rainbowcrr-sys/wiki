@@ -1,0 +1,36 @@
+site_name: Rainbow Tech Wiki
+site_url: https://rainbowcrr-sys.github.io/wiki/
+site_description: Personal technology knowledge base
+site_author: rainbowcrr-sys
+repo_url: https://github.com/rainbowcrr-sys/wiki
+
+theme:
+  name: material
+  language: en
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      primary: indigo
+      accent: indigo
+      scheme: default
+    - media: "(prefers-color-scheme: dark)"
+      primary: indigo
+      accent: indigo
+      scheme: slate
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.top
+    - content.code.copy
+    - search.suggest
+    - search.highlight
+
+plugins:
+  - search
+  - awesome-pages
+
+markdown_extensions:
+  - admonition
+  - pymdownx.highlight
+  - pymdownx.superfences
+  - pymdownx.tabbed
+  - attr_list
