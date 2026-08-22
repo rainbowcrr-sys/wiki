@@ -7,15 +7,25 @@ repo_url: https://github.com/rainbowcrr-sys/wiki
 theme:
   name: material
   language: en
+  # ---- 调色板：定义亮色和暗色两套主题 ----
   palette:
+    # 亮色主题（默认）
     - media: "(prefers-color-scheme: light)"
-      primary: indigo
-      accent: indigo
       scheme: default
-    - media: "(prefers-color-scheme: dark)"
       primary: indigo
       accent: indigo
+      toggle:
+        icon: material/weather-night   # 亮色时显示"月亮"图标
+        name: Switch to dark mode
+    # 暗色主题
+    - media: "(prefers-color-scheme: dark)"
       scheme: slate
+      primary: indigo
+      accent: indigo
+      toggle:
+        icon: material/weather-sunny   # 暗色时显示"太阳"图标
+        name: Switch to light mode
+  # ---- 功能开关 ----
   features:
     - navigation.instant
     - navigation.tracking
@@ -32,5 +42,4 @@ markdown_extensions:
   - admonition
   - pymdownx.highlight
   - pymdownx.superfences
-  - pymdownx.tabbed
   - attr_list
