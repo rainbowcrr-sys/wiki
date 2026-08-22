@@ -6,41 +6,29 @@ repo_url: https://github.com/rainbowcrr-sys/wiki
 
 theme:
   name: material
-  features:
-    - navigation.instant  # 新增：加快页面跳转速度
-    - content.code.copy   # 新增：代码块显示复制按钮
-    - content.action.edit # 新增：显示编辑按钮
-    - content.action.view # 新增：显示查看按钮
-
-# 下面这行非常重要！如果原来有这一行，请保留；如果没有，请加上。
-markdown_extensions:
-  - pymdownx.emoji:
-      emoji_index: !!python/name:material.extensions.emoji.twemoji
-      emoji_generator: !!python/name:material.extensions.emoji.to_svg
-  # ---- 调色板：定义亮色和暗色两套主题 ----
+  language: en
   palette:
-    # 亮色主题（默认）
     - media: "(prefers-color-scheme: light)"
       scheme: default
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/weather-night   # 亮色时显示"月亮"图标
+        icon: material/weather-night
         name: Switch to dark mode
-    # 暗色主题
     - media: "(prefers-color-scheme: dark)"
       scheme: slate
       primary: indigo
       accent: indigo
       toggle:
-        icon: material/weather-sunny   # 暗色时显示"太阳"图标
+        icon: material/weather-sunny
         name: Switch to light mode
-  # ---- 功能开关 ----
   features:
     - navigation.instant
     - navigation.tracking
     - navigation.top
     - content.code.copy
+    - content.action.edit
+    - content.action.view
     - search.suggest
     - search.highlight
 
@@ -53,3 +41,6 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
   - attr_list
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
