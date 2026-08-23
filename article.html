@@ -5,25 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title id="pageTitle">Article · Rainbow Tech Wiki</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: '#4f46e5' } } } }
-  </script>
+  <script>tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: '#4f46e5' } } } }</script>
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css">
-
-  <!-- KaTeX 公式 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css">
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/contrib/auto-render.min.js"></script>
-  <!-- Chart.js 图表 -->
   <script src="https://cdn.jsdelivr.net/npm/chart.js@4/dist/chart.umd.min.js"></script>
-
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C46XN2TYQC"></script>
-  <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date()); gtag('config', 'G-C46XN2TYQC');
-  </script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-C46XN2TYQC');</script>
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen">
   <header class="border-b border-slate-200 dark:border-slate-800">
@@ -34,7 +24,6 @@
       </button>
     </div>
   </header>
-
   <div class="max-w-6xl mx-auto px-4 py-8 flex gap-8">
     <main class="flex-1 min-w-0">
       <div id="articleBody" class="prose dark:prose-invert max-w-none">Loading…</div>
@@ -51,23 +40,22 @@
       </div>
     </aside>
   </div>
-
   <script src="js/theme.js"></script>
   <script src="js/toc.js"></script>
   <script src="js/components.js"></script>
   <script>
-    const params = new URLSearchParams(location.search);
-    const article = params.get('a') || 'programming/material-symbols';
+    var params = new URLSearchParams(location.search);
+    var article = params.get('a') || 'programming/material-symbols';
     fetch('articles/' + article + '.html')
-      .then(r => { if(!r.ok) throw new Error('Not found'); return r.text(); })
-      .then(html => {
+      .then(function(r){ if(!r.ok) throw new Error(); return r.text(); })
+      .then(function(html){
         document.getElementById('articleBody').innerHTML = html;
-        const h1 = document.querySelector('#articleBody h1');
+        var h1 = document.querySelector('#articleBody h1');
         if(h1) document.getElementById('pageTitle').textContent = h1.textContent + ' · Rainbow Tech Wiki';
         if(window.generateTOC) window.generateTOC();
-        if(window.initComponents) window.initComponents(document.getElementById('articleBody'));
+        requestAnimationFrame(function(){ if(window.initComponents) window.initComponents(document.getElementById('articleBody')); });
       })
-      .catch(() => { document.getElementById('articleBody').innerHTML = '<p>Article not found.</p>'; });
+      .catch(function(){ document.getElementById('articleBody').innerHTML = '<p>Article not found.</p>'; });
   </script>
 </body>
 </html>
