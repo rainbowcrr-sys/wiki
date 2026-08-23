@@ -19,17 +19,36 @@
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen">
   <header class="border-b border-slate-200 dark:border-slate-800">
-    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+    <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
       <a href="index.html" class="font-bold text-brand">← Back to Wiki</a>
       <button id="themeToggle" class="p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800" aria-label="Toggle theme">
         <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
       </button>
     </div>
   </header>
-  <main class="max-w-3xl mx-auto px-4 py-8">
-    <div id="articleBody" class="prose dark:prose-invert">Loading…</div>
-  </main>
+
+  <div class="max-w-6xl mx-auto px-4 py-8 flex gap-8">
+    <!-- 文章内容 -->
+    <main class="flex-1 min-w-0">
+      <div id="articleBody" class="prose dark:prose-invert max-w-none">Loading…</div>
+    </main>
+
+    <!-- 右侧 TOC 边栏 -->
+    <aside id="tocSidebar" class="hidden xl:block w-64 shrink-0">
+      <div class="sticky top-8">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide">On this page</h3>
+          <button id="tocToggle" class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800" title="Toggle sidebar">
+            <span class="material-symbols-outlined text-sm" id="tocToggleIcon">chevron_right</span>
+          </button>
+        </div>
+        <nav id="tocNav" class="space-y-1 text-sm"></nav>
+      </div>
+    </aside>
+  </div>
+
   <script src="js/theme.js"></script>
+  <script src="js/toc.js"></script>
   <script>
     const params = new URLSearchParams(location.search);
     const article = params.get('a') || 'programming/first-article';
@@ -39,6 +58,8 @@
         document.getElementById('articleBody').innerHTML = html;
         const h1 = document.querySelector('#articleBody h1');
         if(h1) document.getElementById('pageTitle').textContent = h1.textContent + ' · Rainbow Tech Wiki';
+        // 生成 TOC
+        generateTOC();
       })
       .catch(() => { document.getElementById('articleBody').innerHTML = '<p>Article not found.</p>'; });
   </script>
