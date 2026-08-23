@@ -20,12 +20,6 @@
     },
     {
       "cat": "programming",
-      "slug": "test-auto",
-      "title": "Test Auto Article",
-      "date": "2026-08-23"
-    },
-    {
-      "cat": "programming",
       "slug": "trigger-fix",
       "title": "Fix Cache",
       "date": "2026-08-23"
