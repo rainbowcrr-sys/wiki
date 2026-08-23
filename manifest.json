@@ -25,6 +25,12 @@
       "date": "2026-08-23"
     },
     {
+      "cat": "programming",
+      "slug": "trigger-fix",
+      "title": "Fix Cache",
+      "date": "2026-08-23"
+    },
+    {
       "cat": "tools",
       "slug": "notes",
       "title": "Tools Notes",
