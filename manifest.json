@@ -8,12 +8,6 @@
     },
     {
       "cat": "programming",
-      "slug": "first-article",
-      "title": "My First Article",
-      "date": "2026-08-22"
-    },
-    {
-      "cat": "programming",
       "slug": "material-symbols",
       "title": "Google Material Symbols: The Icon Font You Should Use",
       "date": "2026-08-23"
