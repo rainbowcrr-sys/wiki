@@ -6,7 +6,7 @@
   <title>Rainbow Tech Wiki</title>
   <meta name="description" content="Personal technology knowledge base">
 
-  <!-- Tailwind CSS (CDN, no build needed) -->
+  <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
@@ -15,10 +15,13 @@
     }
   </script>
 
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
+
   <!-- 自定义样式 -->
   <link rel="stylesheet" href="css/style.css">
 
-  <!-- Google Analytics 4 (替换 G-C46XN2TYQC 为你的 ID) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C46XN2TYQC"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
@@ -26,8 +29,6 @@
     gtag('js', new Date());
     gtag('config', 'G-C46XN2TYQC');
   </script>
-
-  <!-- Google AdSense / 其他 Google 产品：在这里加任意 JS 片段即可 -->
 </head>
 <body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen">
   <header class="border-b border-slate-200 dark:border-slate-800">
@@ -38,7 +39,7 @@
           class="hidden sm:block px-3 py-1.5 rounded border border-slate-300 dark:border-slate-700 bg-transparent text-sm focus:outline-none focus:ring-2 focus:ring-brand">
         <button id="themeToggle" title="Toggle dark mode"
           class="p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800" aria-label="Toggle theme">
-          <span id="themeIcon">🌙</span>
+          <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
         </button>
         <a href="https://github.com/rainbowcrr-sys/wiki" target="_blank" rel="noopener"
           class="p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800" aria-label="GitHub">
@@ -46,7 +47,6 @@
         </a>
       </div>
     </div>
-    <!-- 搜索结果下拉 -->
     <div id="searchResults" class="hidden max-w-4xl mx-auto px-4 pb-3"></div>
   </header>
 
@@ -63,7 +63,6 @@
     <div class="max-w-4xl mx-auto px-4 py-6 text-sm text-slate-500">Made with HTML/JS/CSS · Hosted on GitHub Pages</div>
   </footer>
 
-  <!-- Fuse.js for search -->
   <script src="https://cdn.jsdelivr.net/npm/fuse.js@7/dist/fuse.min.js"></script>
   <script src="js/theme.js"></script>
   <script src="js/nav.js"></script>
