@@ -1,0 +1,9 @@
+:root { color-scheme: light dark; }
+html.dark { color-scheme: dark; }
+.prose h1 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; }
+.prose h2 { font-size: 1.5rem; font-weight: 600; margin: 1.5rem 0 .75rem; }
+.prose p { line-height: 1.75; margin-bottom: 1rem; }
+.prose code { background: rgba(100,116,139,.2); padding: 1px 5px; border-radius: 4px; }
+.prose pre { background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x:auto; margin: 1rem 0; }
+.prose pre code { background: none; padding: 0; }
+.prose a { color: #4f46e5; text-decoration: underline; }
