@@ -1,4 +1,4 @@
-(function () {
+(function(){
   const root = document.documentElement;
   const icon = document.getElementById('themeIcon');
   const saved = localStorage.getItem('theme');
