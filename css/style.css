@@ -15,38 +15,39 @@ body { margin: 0; }
 .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
 .prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
 
-/* ===== TOC 面板（fixed 定位，独立于文档流）===== */
+/* TOC 面板：fixed + Tailwind translate 控制显隐 */
 #tocPanel {
   position: fixed;
-  top: 64px;
+  top: 0;
   right: 0;
-  width: 280px;
-  max-height: calc(100vh - 80px);
-  overflow-y: auto;
+  width: 320px;
+  max-width: 90vw;
+  height: 100vh;
   background: #ffffff;
   border-left: 1px solid rgba(100,116,139,.2);
-  border-bottom: 1px solid rgba(100,116,139,.2);
-  border-top: 1px solid rgba(100,116,139,.2);
-  border-bottom-left-radius: 8px;
-  padding: 12px;
-  z-index: 40;
-  transition: transform .25s ease;
-  transform: translateX(0);
-  box-shadow: -4px 0 12px rgba(0,0,0,.06);
+  z-index: 50;
+  transform: translateX(100%);
+  transition: transform .3s ease;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+  overflow-y: auto;
+  box-shadow: -4px 0 16px rgba(0,0,0,.08);
 }
 html.dark #tocPanel { background: #1e293b; }
-#tocPanel[data-open="false"] { transform: translateX(100%); }
-@media (max-width: 1023px) {
-  #tocPanel { width: 88vw; max-width: 320px; }
+
+/* 桌面端（>=1024px）默认滑入显示 */
+@media (min-width: 1024px) {
+  #tocPanel { transform: translateX(0); }
 }
 
-/* TOC 打开按钮（右下角浮动，永远可见）*/
+/* 打开按钮：fixed 右下角，始终可见 */
 #tocOpenBtn {
   position: fixed;
   right: 16px;
   bottom: 16px;
-  width: 48px;
-  height: 48px;
+  width: 52px;
+  height: 52px;
   border-radius: 50%;
   background: #4f46e5;
   color: #fff;
@@ -55,13 +56,28 @@ html.dark #tocPanel { background: #1e293b; }
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 50;
-  box-shadow: 0 4px 12px rgba(79,70,229,.4);
+  z-index: 60;
+  box-shadow: 0 4px 14px rgba(79,70,229,.45);
 }
 #tocOpenBtn .material-symbols-outlined { color: #fff; font-size: 26px; }
-/* 桌面端面板默认展开时，浮动按钮可以隐藏（可选）；这里始终显示，方便随时收起/展开 */
+
+/* 桌面端面板已默认展开时，隐藏浮动按钮（避免遮挡） */
 @media (min-width: 1024px) {
   #tocOpenBtn { display: none; }
+}
+
+/* 遮罩层（移动端点开面板时半透明背景）*/
+#tocOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,.35);
+  z-index: 45;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .3s;
+}
+@media (max-width: 1023px) {
+  body.toc-open #tocOverlay { opacity: 1; pointer-events: all; }
 }
 
 /* 组件系统 */
