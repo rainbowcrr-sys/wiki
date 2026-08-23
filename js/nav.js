@@ -1,91 +1,43 @@
-// js/nav.js
-document.addEventListener('DOMContentLoaded', () => {
-  const container = document.getElementById('explore-container');
-  const searchInput = document.querySelector('.search-input');
+fetch('manifest.json')
+  .then(r => r.json())
+  .then(data => {
+    const articles = data.articles || [];
+    const grid = document.getElementById('categoryGrid');
+    const latest = document.getElementById('latestList');
+    if(!grid) return;
 
-  // 如果没有容器或搜索框，说明是文章页，直接退出
-  if (!container || !searchInput) return;
+    // 分类元数据（图标+描述）内嵌，不依赖 manifest 里的 categories 字段
+    const catMeta = {
+      'programming':  { title: 'Programming',   icon: 'code',        desc: 'Python, Rust, Go and language internals' },
+      'ai-ml':        { title: 'AI & ML',       icon: 'psychology',  desc: 'Paper summaries and model notes' },
+      'linux-devops': { title: 'Linux / DevOps', icon: 'terminal',    desc: 'Shell, Docker, systemd, CI/CD' },
+      'tools':        { title: 'Tools',         icon: 'build',       desc: 'Git configs, editor setups, dotfiles' }
+    };
 
-  // 读取 manifest.json
-  fetch('manifest.json')
-    .then(res => res.json())
-    .then(data => {
-      const articles = data.articles;
+    // 按分类分组
+    const groups = {};
+    articles.forEach(a => { (groups[a.cat] = groups[a.cat] || []).push(a); });
 
-      // 1. 生成分类卡片
-      const categories = {};
-      articles.forEach(article => {
-        if (!categories[article.cat]) {
-          categories[article.cat] = [];
-        }
-        categories[article.cat].push(article);
-      });
+    grid.innerHTML = Object.keys(groups).map(cat => {
+      const m = catMeta[cat] || { title: cat, icon: 'article', desc: '' };
+      const links = groups[cat].map(a =>
+        `<li><a class="text-brand hover:underline" href="article.html?a=${a.cat}/${a.slug}">${a.title}</a></li>`
+      ).join('');
+      return `
+        <div class="border border-slate-200 dark:border-slate-800 rounded-lg p-5 hover:shadow transition">
+          <span class="material-symbols-outlined text-3xl text-brand">${m.icon}</span>
+          <h3 class="font-semibold mt-2">${m.title}</h3>
+          <p class="text-sm text-slate-600 dark:text-slate-400">${m.desc}</p>
+          <ul class="mt-3 text-sm space-y-1">${links || '<li class="text-slate-400">Coming soon</li>'}</ul>
+        </div>`;
+    }).join('');
 
-      let html = '';
-      for (const cat in categories) {
-        const displayName = cat.replace('-', ' / ').toUpperCase();
-        html += `
-          <div class="card">
-            <div class="card-header">
-              <span class="material-symbols-outlined">${getIcon(cat)}</span>
-              <h2>${displayName}</h2>
-            </div>
-            <ul class="card-list">
-        `;
-        categories[cat].forEach(article => {
-          html += `<li><a href="articles/${article.cat}/${article.slug}.html">${article.title}</a></li>`;
-        });
-        html += `</ul></div>`;
-      }
-      container.innerHTML = html;
-
-      // 2. 生成侧边栏 TOC (仅在文章页)
-      if (document.body.classList.contains('article-page')) {
-        generateTOC();
-      }
-
-      // 3. 搜索功能
-      searchInput.addEventListener('input', () => {
-        const q = searchInput.value.toLowerCase().trim();
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-          const text = card.textContent.toLowerCase();
-          card.style.display = text.includes(q) ? 'block' : 'none';
-        });
-      });
-    })
-    .catch(err => console.error("Failed to load manifest:", err));
-});
-
-// 辅助函数：根据分类名返回图标名
-function getIcon(category) {
-  const map = {
-    'programming': 'code',
-    'ai-ml': 'psychology',
-    'linux-devops': 'terminal',
-    'tools': 'build'
-  };
-  return map[category] || 'article';
-}
-
-// 生成右侧目录 TOC
-function generateTOC() {
-  const tocContainer = document.getElementById('toc-container');
-  if (!tocContainer) return;
-
-  const headings = document.querySelectorAll('h1, h2, h3');
-  if (headings.length === 0) {
-    tocContainer.innerHTML = '<p class="text-sm text-gray-500">No sections found.';
-    return;
-  }
-
-  let tocHtml = '<div class="toc-title">On this page</div><ul>';
-  headings.forEach(heading => {
-    // 跳过 id 为空或特定不想显示的标题
-    if (!heading.id) heading.id = heading.textContent.toLowerCase().replace(/ /g, '-').replace(/[^\w-]+/g, '');
-    
-    tocHtml += `<li><a href="#${heading.id}">${heading.textContent}</a></li>`;
-  });
-  tocHtml += '</ul>';
-  tocContainer.innerHTML = tocHtml;
-}
+    if(latest){
+      const recents = [].concat(articles).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
+      latest.innerHTML = recents.map(a => {
+        const m = catMeta[a.cat] || { title: a.cat };
+        return `<li><a class="text-brand hover:underline" href="article.html?a=${a.cat}/${a.slug}">${a.title}</a> <span class="text-slate-400 text-xs">· ${m.title}</span></li>`;
+      }).join('');
+    }
+  })
+  .catch(err => console.error('Failed to load manifest:', err));
