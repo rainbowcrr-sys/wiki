@@ -2,17 +2,27 @@
 html.dark { color-scheme: dark; }
 html { scroll-behavior: smooth; }
 .material-symbols-outlined { font-size: 24px; vertical-align: middle; }
-.ml-3 { margin-left: 0.75rem; } .ml-6 { margin-left: 1.5rem; } .ml-9 { margin-left: 2.25rem; }
+
+/* prose */
 .prose h1 { font-size: 1.875rem; font-weight: 700; margin-bottom: 1rem; }
 .prose h2 { font-size: 1.5rem; font-weight: 600; margin: 1.5rem 0 .75rem; }
 .prose p { line-height: 1.75; margin-bottom: 1rem; }
-.prose code { background: rgba(100,116,139,.2); padding: 1px 5px; border-radius: 4px; font-size: 0.9em; }
+.prose code { background: rgba(100,116,139,.2); padding: 1px 5px; border-radius: 4px; font-size: .9em; }
 .prose pre { background: #0f172a; color: #e2e8f0; padding: 1rem; border-radius: 8px; overflow-x:auto; margin: 1rem 0; }
 .prose pre code { background: none; padding: 0; }
 .prose a { color: #4f46e5; text-decoration: underline; }
 .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
 .prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
-/* ===== 组件系统样式 ===== */
+
+/* TOC 侧边栏：默认在 article.html 里 inline 控制，这里只做响应式隐藏 */
+#tocSidebar { width: 16rem; flex-shrink: 0; }
+@media (max-width: 1023px) {
+  #tocSidebar { display: none !important; }
+  /* 移动端允许通过 JS 强制显示（覆盖上面的 none） */
+  #tocSidebar.toc-force-show { display: block !important; width: 100%; margin-top: 1rem; border-top: 1px solid rgba(100,116,139,.2); padding-top: 1rem; }
+}
+
+/* 组件系统 */
 .code-block { border:1px solid rgba(100,116,139,.25); border-radius:8px; margin:1rem 0; overflow:hidden; background:#0f172a; }
 .code-block-header { display:flex; justify-content:space-between; align-items:center; padding:4px 10px; background:rgba(255,255,255,.05); border-bottom:1px solid rgba(100,116,139,.2); }
 .code-lang { font-size:.72rem; color:#94a3b8; text-transform:uppercase; letter-spacing:.05em; }
@@ -30,12 +40,3 @@ html { scroll-behavior: smooth; }
 .icon-tile-name { font-size:.65rem; color:#64748b; word-break:break-all; text-align:center; }
 
 formula, .formula-block { overflow-x:auto; }
-.code-block{border:1px solid rgba(100,116,139,.25);border-radius:8px;margin:1rem 0;overflow:hidden;background:#0f172a}.code-block-header{display:flex;justify-content:space-between;align-items:center;padding:4px 10px;background:rgba(255,255,255,.05);border-bottom:1px solid rgba(100,116,139,.2)}.code-lang{font-size:.72rem;color:#94a3b8;text-transform:uppercase}.code-copy{font-size:.72rem;padding:2px 8px;border-radius:4px;border:1px solid rgba(255,255,255,.2);background:0 0;color:#e2e8f0;cursor:pointer}.code-copy:hover{background:rgba(255,255,255,.12)}.code-block pre{margin:0;padding:1rem;color:#e2e8f0;overflow-x:auto}.code-block pre code{background:0 0;padding:0;font-size:.9rem}
-.icon-show{display:inline-flex;flex-direction:column;align-items:center;gap:4px;padding:8px 10px}.icon-show .material-symbols-outlined{color:#4f46e5}.icon-show-label{font-size:.7rem;color:#64748b}
-.icon-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(96px,1fr));gap:8px;margin:1rem 0}.icon-tile{display:flex;flex-direction:column;align-items:center;gap:4px;padding:12px 6px;border:1px solid rgba(100,116,139,.2);border-radius:8px}.icon-tile .material-symbols-outlined{font-size:32px;color:#4f46e5}.icon-tile-name{font-size:.65rem;color:#64748b;text-align:center}
-formula{overflow-x:auto}
-/* ===== TOC 侧边栏（修复版）===== */
-#tocSidebar { display: none; }
-@media (min-width: 1280px) { #tocSidebar { display: block; } }
-#tocSidebar.toc-is-hidden { display: none !important; }
-.toc-link { font-size: 0.875rem; line-height: 1.4; }
