@@ -31,18 +31,21 @@
     </main>
   </div>
 
-  <!-- TOC 面板：fixed 定位，独立于文档流，永远不受 flex 布局影响 -->
-  <aside id="tocPanel" data-open="true" aria-label="Table of contents">
-    <div class="flex items-center justify-between mb-3">
+  <!-- 遮罩层（移动端用）-->
+  <div id="tocOverlay"></div>
+
+  <!-- TOC 面板 -->
+  <aside id="tocPanel" aria-label="Table of contents">
+    <div class="flex items-center justify-between mb-4">
       <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide">On this page</h3>
-      <button id="tocCloseBtn" class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800" title="Close" aria-label="Close table of contents">
+      <button id="tocCloseBtn" class="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800" title="Close" aria-label="Close table of contents">
         <span class="material-symbols-outlined text-sm">close</span>
       </button>
     </div>
     <nav id="tocNav" class="space-y-1 text-sm"></nav>
   </aside>
 
-  <!-- 右下角浮动打开按钮（永远可见）-->
+  <!-- 右下角浮动打开按钮（始终可见）-->
   <button id="tocOpenBtn" title="Open table of contents" aria-label="Open table of contents">
     <span class="material-symbols-outlined">menu_book</span>
   </button>
