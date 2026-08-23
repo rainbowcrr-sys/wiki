@@ -8,6 +8,7 @@
   <script>
     tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: '#4f46e5' } } } }
   </script>
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css">
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-C46XN2TYQC"></script>
   <script>
@@ -21,7 +22,7 @@
     <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
       <a href="index.html" class="font-bold text-brand">← Back to Wiki</a>
       <button id="themeToggle" class="p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800" aria-label="Toggle theme">
-        <span id="themeIcon">🌙</span>
+        <span class="material-symbols-outlined" id="themeIcon">dark_mode</span>
       </button>
     </div>
   </header>
@@ -30,7 +31,6 @@
   </main>
   <script src="js/theme.js"></script>
   <script>
-    // 从 URL 参数 ?a=programming/first-article 加载对应文章 html 片段
     const params = new URLSearchParams(location.search);
     const article = params.get('a') || 'programming/first-article';
     fetch('articles/' + article + '.html')
