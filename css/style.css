@@ -98,3 +98,31 @@ html.dark #tocPanel { background: #1e293b; }
 .icon-tile-name { font-size:.65rem; color:#64748b; word-break:break-all; text-align:center; }
 
 formula, .formula-block { overflow-x:auto; }
+/* TOC 面板 */
+#tocPanel {
+  position: fixed; top: 0; right: 0;
+  width: 320px; max-width: 90vw; height: 100vh;
+  background: #ffffff; border-left: 1px solid rgba(100,116,139,.2);
+  z-index: 50; transform: translateX(100%);
+  transition: transform .3s ease;
+  display: flex; flex-direction: column;
+  padding: 16px; overflow-y: auto;
+  box-shadow: -4px 0 16px rgba(0,0,0,.08);
+}
+html.dark #tocPanel { background: #1e293b; }
+@media (min-width: 1024px) { #tocPanel { transform: translateX(0); } }
+
+/* 浮动打开按钮 */
+#tocOpenBtn {
+  position: fixed; right: 16px; bottom: 16px;
+  width: 52px; height: 52px; border-radius: 50%;
+  background: #4f46e5; color: #fff; border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 60; box-shadow: 0 4px 14px rgba(79,70,229,.45);
+}
+#tocOpenBtn .material-symbols-outlined { color: #fff; font-size: 26px; }
+@media (min-width: 1024px) { #tocOpenBtn { display: none; } }
+
+/* 遮罩层 */
+#tocOverlay { position: fixed; inset: 0; background: rgba(0,0,0,.35); z-index: 45; opacity: 0; pointer-events: none; transition: opacity .3s; }
+@media (max-width: 1023px) { body.toc-open #tocOverlay { opacity: 1; pointer-events: all; } }
