@@ -5,7 +5,7 @@
   const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
   const setDark = (d) => {
     root.classList.toggle('dark', d);
-    if(icon) icon.textContent = d ? '☀️' : '🌙';
+    if(icon) icon.textContent = d ? 'light_mode' : 'dark_mode';
     localStorage.setItem('theme', d ? 'dark' : 'light');
   };
   setDark(saved ? saved === 'dark' : prefersDark);
