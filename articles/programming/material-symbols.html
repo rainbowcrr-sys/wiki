@@ -1,0 +1,53 @@
+<h1>Google Material Symbols: The Icon Font You Should Use</h1>
+<p class="text-slate-600 dark:text-slate-400 mb-6">A complete guide to using Google's Material Symbols in your projects.</p>
+
+<h2 id="introduction">Introduction</h2>
+<p>Material Symbols is Google's latest icon set, designed to replace Material Icons. It offers over 2,500 icons in three styles (Outlined, Rounded, Sharp) and four adjustable properties: weight, fill, optical size, and grade.</p>
+<p>Unlike emoji-based icons, Material Symbols renders as vector outlines, which means they scale perfectly at any size and can be colored with CSS.</p>
+
+<h2 id="why-material-symbols">Why Material Symbols?</h2>
+<ul>
+  <li><strong>Variable font technology</strong> — one font file, infinite variations</li>
+  <li><strong>Accessibility</strong> — icons are treated as text, screen readers can announce them</li>
+  <li><strong>Performance</strong> — single HTTP request for all icons</li>
+  <li><strong>Consistency</strong> — designed on a 24×24 grid, optically balanced</li>
+</ul>
+
+<h2 id="installation">Installation</h2>
+<p>The easiest way is to include the font via Google Fonts CDN. Add this line to your HTML <code>&lt;head&gt;</code>:</p>
+<pre><code>&lt;link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" /&gt;</code></pre>
+<p>For self-hosting, download the font files from <a href="https://github.com/google/material-design-icons" target="_blank">Google's GitHub repo</a> and serve them locally.</p>
+
+<h2 id="basic-usage">Basic Usage</h2>
+<p>Once loaded, use the <code>material-symbols-outlined</code> class and put the icon name inside a span:</p>
+<pre><code>&lt;span class="material-symbols-outlined"&gt;home&lt;/span&gt;</code></pre>
+<p>This renders a home icon. The icon name is always lowercase, words separated by underscores (e.g., <code>arrow_forward</code>, <code>shopping_cart</code>).</p>
+
+<h2 id="customization">Customization</h2>
+<p>Material Symbols supports four axes you can control with CSS:</p>
+<ul>
+  <li><strong>Weight</strong> (100–700): <code>font-variation-settings: 'wght' 400;</code></li>
+  <li><strong>Fill</strong> (0 or 1): <code>font-variation-settings: 'FILL' 1;</code></li>
+  <li><strong>Optical Size</strong> (20–48): <code>font-variation-settings: 'opsz' 24;</code></li>
+  <li><strong>Grade</strong> (-50 to 200): <code>font-variation-settings: 'GRAD' 0;</code></li>
+</ul>
+<p>Example of a filled, bold icon:</p>
+<pre><code>.icon-filled {
+  font-variation-settings: 'FILL' 1, 'wght' 600;
+}</code></pre>
+
+<h2 id="examples">Examples in This Wiki</h2>
+<p>Look at the navigation cards on the homepage — each uses a Material Symbol icon:</p>
+<ul>
+  <li><span class="material-symbols-outlined">code</span> Programming</li>
+  <li><span class="material-symbols-outlined">psychology</span> AI &amp; ML</li>
+  <li><span class="material-symbols-outlined">terminal</span> Linux / DevOps</li>
+  <li><span class="material-symbols-outlined">build</span> Tools</li>
+</ul>
+
+<h2 id="browser-support">Browser Support</h2>
+<p>Material Symbols works in all modern browsers that support variable fonts: Chrome 62+, Firefox 62+, Safari 11+, Edge 79+. For older browsers, fall back to the static Material Icons font.</p>
+
+<h2 id="end">End</h2>
+<p>That's everything you need to get started with Material Symbols. It's the cleanest, most flexible icon solution for web projects today — no more emoji hacks, no more SVG sprite hell.</p>
+<p>Go forth and icon-ify your site!</p>
