@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="pageTitle">Article · Rainbow Tech Wiki</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = { darkMode: 'class', theme: { extend: { colors: { brand: '#4f46e5' } } } }
+  </script>
+  <link rel="stylesheet" href="css/style.css">
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-C46XN2TYQC"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date()); gtag('config', 'G-C46XN2TYQC');
+  </script>
+</head>
+<body class="bg-slate-50 text-slate-900 dark:bg-slate-900 dark:text-slate-100 min-h-screen">
+  <header class="border-b border-slate-200 dark:border-slate-800">
+    <div class="max-w-4xl mx-auto px-4 py-4 flex items-center justify-between">
+      <a href="index.html" class="font-bold text-brand">← Back to Wiki</a>
+      <button id="themeToggle" class="p-2 rounded hover:bg-slate-200 dark:hover:bg-slate-800" aria-label="Toggle theme">
+        <span id="themeIcon">🌙</span>
+      </button>
+    </div>
+  </header>
+  <main class="max-w-3xl mx-auto px-4 py-8">
+    <div id="articleBody" class="prose dark:prose-invert">Loading…</div>
+  </main>
+  <script src="js/theme.js"></script>
+  <script>
+    // 从 URL 参数 ?a=programming/first-article 加载对应文章 html 片段
+    const params = new URLSearchParams(location.search);
+    const article = params.get('a') || 'programming/first-article';
+    fetch('articles/' + article + '.html')
+      .then(r => { if(!r.ok) throw new Error('Not found'); return r.text(); })
+      .then(html => {
+        document.getElementById('articleBody').innerHTML = html;
+        const h1 = document.querySelector('#articleBody h1');
+        if(h1) document.getElementById('pageTitle').textContent = h1.textContent + ' · Rainbow Tech Wiki';
+      })
+      .catch(() => { document.getElementById('articleBody').innerHTML = '<p>Article not found.</p>'; });
+  </script>
+</body>
+</html>
