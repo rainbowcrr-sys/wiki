@@ -1,6 +1,7 @@
 :root { color-scheme: light dark; }
 html.dark { color-scheme: dark; }
 html { scroll-behavior: smooth; }
+body { margin: 0; }
 .material-symbols-outlined { font-size: 24px; vertical-align: middle; }
 
 /* prose */
@@ -14,12 +15,53 @@ html { scroll-behavior: smooth; }
 .prose ul { list-style: disc; padding-left: 1.5rem; margin-bottom: 1rem; }
 .prose ol { list-style: decimal; padding-left: 1.5rem; margin-bottom: 1rem; }
 
-/* TOC 侧边栏：默认在 article.html 里 inline 控制，这里只做响应式隐藏 */
-#tocSidebar { width: 16rem; flex-shrink: 0; }
+/* ===== TOC 面板（fixed 定位，独立于文档流）===== */
+#tocPanel {
+  position: fixed;
+  top: 64px;
+  right: 0;
+  width: 280px;
+  max-height: calc(100vh - 80px);
+  overflow-y: auto;
+  background: #ffffff;
+  border-left: 1px solid rgba(100,116,139,.2);
+  border-bottom: 1px solid rgba(100,116,139,.2);
+  border-top: 1px solid rgba(100,116,139,.2);
+  border-bottom-left-radius: 8px;
+  padding: 12px;
+  z-index: 40;
+  transition: transform .25s ease;
+  transform: translateX(0);
+  box-shadow: -4px 0 12px rgba(0,0,0,.06);
+}
+html.dark #tocPanel { background: #1e293b; }
+#tocPanel[data-open="false"] { transform: translateX(100%); }
 @media (max-width: 1023px) {
-  #tocSidebar { display: none !important; }
-  /* 移动端允许通过 JS 强制显示（覆盖上面的 none） */
-  #tocSidebar.toc-force-show { display: block !important; width: 100%; margin-top: 1rem; border-top: 1px solid rgba(100,116,139,.2); padding-top: 1rem; }
+  #tocPanel { width: 88vw; max-width: 320px; }
+}
+
+/* TOC 打开按钮（右下角浮动，永远可见）*/
+#tocOpenBtn {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #4f46e5;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  box-shadow: 0 4px 12px rgba(79,70,229,.4);
+}
+#tocOpenBtn .material-symbols-outlined { color: #fff; font-size: 26px; }
+/* 桌面端面板默认展开时，浮动按钮可以隐藏（可选）；这里始终显示，方便随时收起/展开 */
+@media (min-width: 1024px) {
+  #tocOpenBtn { display: none; }
 }
 
 /* 组件系统 */
