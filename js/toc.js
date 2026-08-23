@@ -1,13 +1,13 @@
 // js/toc.js
 (function () {
-  var sidebar = document.getElementById('tocSidebar');
-  var toggleBtn = document.getElementById('tocToggle');
-  var toggleIcon = document.getElementById('tocToggleIcon');
-  if (!sidebar) return;
+  var panel = document.getElementById('tocPanel');
+  var openBtn = document.getElementById('tocOpenBtn');
+  var closeBtn = document.getElementById('tocCloseBtn');
+  var nav = document.getElementById('tocNav');
+  if (!panel || !openBtn) return;
 
-  // 生成 TOC
-  window.generateTOC = function () {
-    var nav = document.getElementById('tocNav');
+  // 生成 TOC 列表
+  function buildTOC() {
     if (!nav) return;
     var headings = document.querySelectorAll('#articleBody h2');
     if (headings.length === 0) {
@@ -22,10 +22,15 @@
     html += '</ul>';
     nav.innerHTML = html;
 
+    // 点击链接后（手机端）自动收起面板
+    nav.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () { if (window.innerWidth < 1024) setOpen(false); });
+    });
+
     if ('IntersectionObserver' in window) {
       var links = {};
       nav.querySelectorAll('a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
-      var observer = new IntersectionObserver(function (entries) {
+      var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           var a = links[entry.target.id];
           if (!a) return;
@@ -35,39 +40,26 @@
           }
         });
       }, { rootMargin: '-80px 0px -80% 0px' });
-      headings.forEach(function (h) { observer.observe(h); });
+      headings.forEach(function (h) { io.observe(h); });
     }
-  };
-
-  // 显隐控制：用内联 style + 数据属性，绕过 Tailwind hidden 冲突
-  function setOpen(open) {
-    sidebar.dataset.open = open ? 'true' : 'false';
-    if (open) {
-      sidebar.style.display = 'block';
-      if (toggleIcon) toggleIcon.textContent = 'chevron_right';
-    } else {
-      sidebar.style.display = 'none';
-      if (toggleIcon) toggleIcon.textContent = 'chevron_left';
-    }
-    try { localStorage.setItem('tocOpen', open ? 'true' : 'false'); } catch(e){}
   }
+
+  function setOpen(open) {
+    panel.dataset.open = open ? 'true' : 'false';
+    try { localStorage.setItem('tocOpen', open ? 'true' : 'false'); } catch (e) {}
+  }
+
+  function toggle() { setOpen(panel.dataset.open !== 'true'); }
 
   // 初始状态：桌面端默认开，移动端默认关
-  var isDesktop = window.matchMedia('(min-width: 1024px)').matches;
+  var isDesktop = window.innerWidth >= 1024;
   var saved = null;
-  try { saved = localStorage.getItem('tocOpen'); } catch(e){}
-  var initialOpen = saved !== null ? saved === 'true' : isDesktop;
-  setOpen(initialOpen);
+  try { saved = localStorage.getItem('tocOpen'); } catch (e) {}
+  setOpen(saved !== null ? saved === 'true' : isDesktop);
 
-  // 窗口尺寸变化时：只在用户没手动设置过时才跟随断点
-  var mq = window.matchMedia('(min-width: 1024px)');
-  mq.addListener && mq.addListener(function (e) {
-    try { if (localStorage.getItem('tocOpen') === null) setOpen(e.matches); } catch(err){}
-  });
+  openBtn.addEventListener('click', toggle);
+  if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
 
-  if (toggleBtn) {
-    toggleBtn.addEventListener('click', function () {
-      setOpen(sidebar.dataset.open !== 'true');
-    });
-  }
+  // 暴露给 article.html 的 fetch 回调
+  window.generateTOC = buildTOC;
 })();
