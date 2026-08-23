@@ -6,20 +6,27 @@ fetch('manifest.json')
     const latest = document.getElementById('latestList');
     if(!grid) return;
 
-    // 分类元数据（图标+描述）内嵌，不依赖 manifest 里的 categories 字段
+    // 分类元数据（图标+描述），新分类会自动用默认值，不报错
     const catMeta = {
       'programming':  { title: 'Programming',   icon: 'code',        desc: 'Python, Rust, Go and language internals' },
       'ai-ml':        { title: 'AI & ML',       icon: 'psychology',  desc: 'Paper summaries and model notes' },
       'linux-devops': { title: 'Linux / DevOps', icon: 'terminal',    desc: 'Shell, Docker, systemd, CI/CD' },
-      'tools':        { title: 'Tools',         icon: 'build',       desc: 'Git configs, editor setups, dotfiles' }
+      'tools':        { title: 'Tools',         icon: 'build',       desc: 'Git configs, editor setups, dotfiles' },
+      'web-dev':      { title: 'Web Dev',       icon: 'web',         desc: 'Frontend, backend, APIs, frameworks' }
     };
+
+    // 未注册的分类用默认显示（防止新分类没在这里注册导致报错或空白）
+    function getCatMeta(cat) {
+      if (catMeta[cat]) return catMeta[cat];
+      return { title: cat.replace('-', ' ').toUpperCase(), icon: 'article', desc: '' };
+    }
 
     // 按分类分组
     const groups = {};
     articles.forEach(a => { (groups[a.cat] = groups[a.cat] || []).push(a); });
 
     grid.innerHTML = Object.keys(groups).map(cat => {
-      const m = catMeta[cat] || { title: cat, icon: 'article', desc: '' };
+      const m = getCatMeta(cat);
       const links = groups[cat].map(a =>
         `<li><a class="text-brand hover:underline" href="article.html?a=${a.cat}/${a.slug}">${a.title}</a></li>`
       ).join('');
@@ -35,7 +42,7 @@ fetch('manifest.json')
     if(latest){
       const recents = [].concat(articles).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,5);
       latest.innerHTML = recents.map(a => {
-        const m = catMeta[a.cat] || { title: a.cat };
+        const m = getCatMeta(a.cat);
         return `<li><a class="text-brand hover:underline" href="article.html?a=${a.cat}/${a.slug}">${a.title}</a> <span class="text-slate-400 text-xs">· ${m.title}</span></li>`;
       }).join('');
     }
