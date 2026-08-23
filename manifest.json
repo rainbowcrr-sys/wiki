@@ -1,7 +1,4 @@
 {
-  "siteName": "Rainbow Tech Wiki",
-  "description": "Personal knowledge base for programming, AI, Linux, and tools.",
-  "githubUrl": "https://github.com/rainbowcrr-sys/wiki",
   "articles": [
     {
       "cat": "programming",
