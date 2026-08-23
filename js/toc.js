@@ -1,12 +1,59 @@
 // js/toc.js
 (function () {
-  var panel = document.getElementById('tocPanel');
-  var openBtn = document.getElementById('tocOpenBtn');
-  var closeBtn = document.getElementById('tocCloseBtn');
-  var nav = document.getElementById('tocNav');
-  if (!panel) return;
+  var panel, openBtn, closeBtn, nav, overlay;
 
-  // 生成 TOC
+  function getEls() {
+    panel = document.getElementById('tocPanel');
+    openBtn = document.getElementById('tocOpenBtn');
+    closeBtn = document.getElementById('tocCloseBtn');
+    nav = document.getElementById('tocNav');
+    overlay = document.getElementById('tocOverlay');
+  }
+
+  // 等 DOM 就绪后再取元素、绑事件（防止元素未渲染导致监听绑不上）
+  function init() {
+    getEls();
+    if (!panel) return;
+
+    buildTOC();
+
+    // 用 addEventListener 且 passive:false 确保 click 一定生效
+    if (openBtn) openBtn.addEventListener('click', function (e) { e.preventDefault(); openPanel(); }, { passive: false });
+    if (closeBtn) closeBtn.addEventListener('click', function (e) { e.preventDefault(); closePanel(); }, { passive: false });
+    if (overlay) overlay.addEventListener('click', function () { closePanel(); }, { passive: false });
+
+    // 桌面端：默认展开面板（移除 translate-x-full，加 translate-x-0）
+    if (window.innerWidth >= 1024) {
+      panel.classList.remove('translate-x-full');
+      panel.classList.add('translate-x-0');
+      if (overlay) { overlay.style.opacity = '0'; overlay.style.pointerEvents = 'none'; }
+    } else {
+      // 移动端：默认收起
+      panel.classList.add('translate-x-full');
+      panel.classList.remove('translate-x-0');
+    }
+  }
+
+  function openPanel() {
+    panel.classList.remove('translate-x-full');
+    panel.classList.add('translate-x-0');
+    if (overlay) { overlay.style.opacity = '1'; overlay.style.pointerEvents = 'all'; }
+    try { localStorage.setItem('tocOpen', 'true'); } catch (e) {}
+  }
+
+  function closePanel() {
+    if (window.innerWidth >= 1024) {
+      // 桌面端也允许关闭：加回 translate-x-full
+      panel.classList.add('translate-x-full');
+      panel.classList.remove('translate-x-0');
+    } else {
+      panel.classList.add('translate-x-full');
+      panel.classList.remove('translate-x-0');
+    }
+    if (overlay) { overlay.style.opacity = '0'; overlay.style.pointerEvents = 'none'; }
+    try { localStorage.setItem('tocOpen', 'false'); } catch (e) {}
+  }
+
   function buildTOC() {
     if (!nav) return;
     var headings = document.querySelectorAll('#articleBody h2');
@@ -15,20 +62,27 @@
       return;
     }
     headings.forEach(function (h, i) { if (!h.id) h.id = 'heading-' + i; });
-    var html = '<ul class="space-y-1">';
-    headings.forEach(function (h) {
-      html += '<li><a href="#' + h.id + '" class="toc-link block px-2 py-1.5 rounded text-sm hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition" data-toc-link>' + h.textContent + '</a></li>';
-    });
-    html += '</ul>';
-    nav.innerHTML = html;
 
-    nav.querySelectorAll('a[data-toc-link]').forEach(function (a) {
-      a.addEventListener('click', function () { if (window.innerWidth < 1024) setOpen(false); });
+    var ul = document.createElement('ul');
+    ul.className = 'space-y-1';
+    headings.forEach(function (h) {
+      var li = document.createElement('li');
+      var a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.className = 'toc-link block px-2 py-1.5 rounded text-sm hover:bg-slate-200 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition';
+      a.textContent = h.textContent;
+      a.addEventListener('click', function () {
+        if (window.innerWidth < 1024) closePanel();
+      }, { passive: false });
+      li.appendChild(a);
+      ul.appendChild(li);
     });
+    nav.innerHTML = '';
+    nav.appendChild(ul);
 
     if ('IntersectionObserver' in window) {
       var links = {};
-      nav.querySelectorAll('a[data-toc-link]').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
+      nav.querySelectorAll('a').forEach(function (a) { links[a.getAttribute('href').slice(1)] = a; });
       var io = new IntersectionObserver(function (entries) {
         entries.forEach(function (entry) {
           var a = links[entry.target.id];
@@ -43,25 +97,12 @@
     }
   }
 
-  function setOpen(open) {
-    if (open) {
-      panel.classList.remove('translate-x-full');
-      panel.classList.add('translate-x-0');
-    } else {
-      panel.classList.add('translate-x-full');
-      panel.classList.remove('translate-x-0');
-    }
-    try { localStorage.setItem('tocOpen', open ? 'true' : 'false'); } catch (e) {}
-  }
-
-  // 初始状态：桌面端默认开，移动端默认关
-  var isDesktop = window.innerWidth >= 1024;
-  var saved = null;
-  try { saved = localStorage.getItem('tocOpen'); } catch (e) {}
-  setOpen(saved !== null ? saved === 'true' : isDesktop);
-
-  if (openBtn) openBtn.addEventListener('click', function () { setOpen(true); });
-  if (closeBtn) closeBtn.addEventListener('click', function () { setOpen(false); });
-
+  // 暴露给 article.html 的 fetch 回调
   window.generateTOC = buildTOC;
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
 })();
