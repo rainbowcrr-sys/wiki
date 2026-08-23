@@ -31,22 +31,22 @@
     </main>
   </div>
 
-  <!-- 遮罩层（移动端用）-->
-  <div id="tocOverlay"></div>
+  <!-- TOC 遮罩层（移动端点击关闭） -->
+  <div id="tocOverlay" class="fixed inset-0 bg-black/35 z-40 opacity-0 pointer-events-none transition-opacity duration-300"></div>
 
   <!-- TOC 面板 -->
-  <aside id="tocPanel" aria-label="Table of contents">
+  <aside id="tocPanel" class="fixed top-0 right-0 w-80 max-w-[90vw] h-screen bg-white dark:bg-slate-800 border-l border-slate-200 dark:border-slate-700 z-50 transform translate-x-full transition-transform duration-300 flex flex-col p-4 overflow-y-auto shadow-[-4px_0_16px_rgba(0,0,0,0.08)]">
     <div class="flex items-center justify-between mb-4">
       <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide">On this page</h3>
-      <button id="tocCloseBtn" class="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-800" title="Close" aria-label="Close table of contents">
+      <button id="tocCloseBtn" class="p-1.5 rounded hover:bg-slate-200 dark:hover:bg-slate-700" title="Close" aria-label="Close table of contents">
         <span class="material-symbols-outlined text-sm">close</span>
       </button>
     </div>
     <nav id="tocNav" class="space-y-1 text-sm"></nav>
   </aside>
 
-  <!-- 右下角浮动打开按钮（始终可见）-->
-  <button id="tocOpenBtn" title="Open table of contents" aria-label="Open table of contents">
+  <!-- 右下角浮动打开按钮 -->
+  <button id="tocOpenBtn" class="fixed right-4 bottom-4 w-13 h-13 rounded-full bg-brand text-white border-none cursor-pointer flex items-center justify-center z-60 shadow-lg" title="Open table of contents" aria-label="Open table of contents">
     <span class="material-symbols-outlined">menu_book</span>
   </button>
 
