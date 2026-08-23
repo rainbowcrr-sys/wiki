@@ -1,0 +1,37 @@
+name: Delete Article
+
+on:
+  workflow_dispatch:
+    inputs:
+      article_name:
+        description: 'Article slug to delete (e.g. test-auto, trigger-fix, my-article). Matches the .html filename without extension.'
+        required: true
+        type: string
+
+permissions:
+  contents: write
+
+jobs:
+  delete:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Delete article and regenerate manifest
+        env:
+          ARTICLE_NAME: ${{ github.event.inputs.article_name }}
+        run: python .github/scripts/delete_article.py
+
+      - name: Commit and push if changed
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git diff --cached --quiet || git commit -m "chore: delete article '${{ github.event.inputs.article_name }}' [skip ci]"
+          git push
