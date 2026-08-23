@@ -24,22 +24,29 @@
       </button>
     </div>
   </header>
-  <div class="max-w-6xl mx-auto px-4 py-8 flex gap-8">
-    <main class="flex-1 min-w-0">
+
+  <div class="max-w-6xl mx-auto px-4 py-8">
+    <main class="min-w-0">
       <div id="articleBody" class="prose dark:prose-invert max-w-none">Loading…</div>
     </main>
-    <aside id="tocSidebar" class="shrink-0">
-      <div class="sticky top-8">
-        <div class="flex items-center justify-between mb-3">
-          <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide">On this page</h3>
-          <button id="tocToggle" class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800" title="Toggle sidebar" aria-label="Toggle table of contents">
-            <span class="material-symbols-outlined text-sm" id="tocToggleIcon">chevron_right</span>
-          </button>
-        </div>
-        <nav id="tocNav" class="space-y-1 text-sm"></nav>
-      </div>
-    </aside>
   </div>
+
+  <!-- TOC 面板：fixed 定位，独立于文档流，永远不受 flex 布局影响 -->
+  <aside id="tocPanel" data-open="true" aria-label="Table of contents">
+    <div class="flex items-center justify-between mb-3">
+      <h3 class="text-sm font-semibold text-slate-600 dark:text-slate-400 uppercase tracking-wide">On this page</h3>
+      <button id="tocCloseBtn" class="p-1 rounded hover:bg-slate-200 dark:hover:bg-slate-800" title="Close" aria-label="Close table of contents">
+        <span class="material-symbols-outlined text-sm">close</span>
+      </button>
+    </div>
+    <nav id="tocNav" class="space-y-1 text-sm"></nav>
+  </aside>
+
+  <!-- 右下角浮动打开按钮（永远可见）-->
+  <button id="tocOpenBtn" title="Open table of contents" aria-label="Open table of contents">
+    <span class="material-symbols-outlined">menu_book</span>
+  </button>
+
   <script src="js/theme.js"></script>
   <script src="js/toc.js"></script>
   <script src="js/components.js"></script>
