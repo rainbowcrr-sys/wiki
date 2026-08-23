@@ -1,0 +1,14 @@
+{
+  "categories": [
+    { "slug": "programming",   "title": "Programming",   "icon": "code",       "desc": "Python, Rust, Go and language internals" },
+    { "slug": "ai-ml",         "title": "AI & ML",       "icon": "psychology", "desc": "Paper summaries and model notes" },
+    { "slug": "linux-devops",  "title": "Linux / DevOps", "icon": "terminal",   "desc": "Shell, Docker, systemd, CI/CD" },
+    { "slug": "tools",         "title": "Tools",         "icon": "build",      "desc": "Git configs, editor setups, dotfiles" }
+  ],
+  "articles": [
+    { "cat": "programming",  "slug": "first-article", "title": "My First Article", "date": "2026-08-23" },
+    { "cat": "ai-ml",        "slug": "notes",         "title": "AI & ML Notes",   "date": "2026-08-23" },
+    { "cat": "linux-devops", "slug": "notes",         "title": "Linux / DevOps Notes", "date": "2026-08-23" },
+    { "cat": "tools",        "slug": "notes",         "title": "Tools Notes",      "date": "2026-08-23" }
+  ]
+}
