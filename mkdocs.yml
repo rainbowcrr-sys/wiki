@@ -42,3 +42,8 @@ markdown_extensions:
   - pymdownx.highlight
   - pymdownx.superfences
   - attr_list
+
+extra:                        # ← 这是新加的
+  analytics:
+    provider: google
+    property: G-C46XN2TYQC
