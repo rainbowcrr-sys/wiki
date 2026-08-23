@@ -2,62 +2,26 @@
 <p class="text-slate-600 dark:text-slate-400 mb-6">2026-08-23</p>
 
 <h2 id="introduction">Introduction</h2>
-<p>Material Symbols is Google's latest icon set, designed to replace Material Icons. It offers over 2,500 icons in three styles (Outlined, Rounded, Sharp) and four adjustable properties: weight, fill, optical size, and grade.</p>
-<p>Unlike emoji-based icons, Material Symbols renders as vector outlines — they scale perfectly and can be colored with CSS.</p>
+<p>Material Symbols is Google's latest icon set. Over 2,500 icons, vector outlines, CSS colorable.</p>
 
 <h2 id="live-icon-showcase">Live Icon Showcase</h2>
-<p>The grid below is rendered live on this page using the <code>&lt;icon-grid&gt;</code> component — every tile is a real Material Symbol icon:</p>
 <icon-grid icons='["code","psychology","terminal","build","web","database","cloud","school","science","rocket_launch","lightbulb","favorite","search","home","settings","github"]'></icon-grid>
 
 <h2 id="single-icon">Single Icon</h2>
-<p>One icon at a time with <code>&lt;icon-show&gt;</code>:</p>
-<p>
-  <icon-show name="code" label="Programming"></icon-show>
-  <icon-show name="psychology" label="AI / ML"></icon-show>
-  <icon-show name="terminal" label="Linux / DevOps"></icon-show>
-  <icon-show name="build" label="Tools"></icon-show>
-</p>
+<p><icon-show name="code" label="Programming"></icon-show> <icon-show name="psychology" label="AI / ML"></icon-show> <icon-show name="terminal" label="Linux / DevOps"></icon-show> <icon-show name="build" label="Tools"></icon-show></p>
 
-<h2 id="why-material-symbols">Why Material Symbols?</h2>
-<ul>
-  <li><strong>Variable font technology</strong> — one font file, infinite variations</li>
-  <li><strong>Accessibility</strong> — icons are text, screen readers can announce them</li>
-  <li><strong>Performance</strong> — single HTTP request for all icons</li>
-  <li><strong>Consistency</strong> — designed on a 24×24 grid</li>
-</ul>
-
-<h2 id="installation">Installation</h2>
-<p>Add this line to your HTML <code>&lt;head&gt;</code>:</p>
-<code-block lang="html">&lt;link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet" /&gt;</code-block>
-
-<h2 id="basic-usage">Basic Usage</h2>
-<p>Use the <code>material-symbols-outlined</code> class and put the icon name in a span:</p>
-<code-block lang="html">&lt;span class="material-symbols-outlined"&gt;home&lt;/span&gt;</code-block>
-
-<h2 id="code-block-demo">Code Block Component</h2>
-<p>Code blocks in this wiki use the <code>&lt;code-block&gt;</code> component — they get a language label and a Copy button automatically:</p>
+<h2 id="code-block-demo">Code Block</h2>
 <code-block lang="python">def hello(name):
     print(f"Hello, {name}!")
 
 hello("World")</code-block>
 
-<h2 id="formula-demo">Formula Component</h2>
-<p>Math notes can render LaTeX via the <code>&lt;formula&gt;</code> component (powered by KaTeX):</p>
+<h2 id="formula-demo">Formula</h2>
 <formula>e^{i\pi} + 1 = 0</formula>
 <p style="margin-top:.5rem"><formula>\int_{0}^{\infty} e^{-x}\,dx = 1</formula></p>
 
-<h2 id="chart-demo">Chart Component</h2>
-<p>You can even embed charts with <code>&lt;chart-block&gt;</code> (powered by Chart.js):</p>
+<h2 id="chart-demo">Chart</h2>
 <chart-block config='{"type":"bar","data":{"labels":["Python","Rust","Go","TS"],"datasets":[{"label":"Articles","data":[12,5,3,7],"backgroundColor":"#4f46e5"}]},"options":{"responsive":true,"plugins":{"legend":{"display":false}}}}'></chart-block>
 
-<h2 id="customization">Customization</h2>
-<p>Four axes you can control with CSS <code>font-variation-settings</code>:</p>
-<ul>
-  <li><strong>Weight</strong> (100–700): <code>'wght' 400</code></li>
-  <li><strong>Fill</strong> (0 or 1): <code>'FILL' 1</code></li>
-  <li><strong>Optical Size</strong> (20–48): <code>'opsz' 24</code></li>
-  <li><strong>Grade</strong> (-50 to 200): <code>'GRAD' 0</code></li>
-</ul>
-
 <h2 id="end">End</h2>
-<p>That's everything you need to get started. It's the cleanest, most flexible icon solution for web projects today — no emoji hacks, no SVG sprite hell.</p>
+<p>That's it.</p>
