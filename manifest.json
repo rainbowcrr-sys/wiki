@@ -10,5 +10,6 @@
     { "cat": "ai-ml",        "slug": "notes",         "title": "AI & ML Notes",   "date": "2026-08-23" },
     { "cat": "linux-devops", "slug": "notes",         "title": "Linux / DevOps Notes", "date": "2026-08-23" },
     { "cat": "tools",        "slug": "notes",         "title": "Tools Notes",      "date": "2026-08-23" }
+    { "cat": "programming", "slug": "material-symbols", "title": "Google Material Symbols Guide", "date": "2026-08-23" }
   ]
 }
